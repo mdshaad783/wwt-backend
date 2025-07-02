@@ -8,12 +8,18 @@ import categoryRoutes from "./routes/categoryRoutes.js"
 import productRoutes from "./routes/productRoutes.js"
 import uploadRoutes from "./routes/uploadRoutes.js"
 import orderRoutes from "./routes/orderRoutes.js"
-
+import cors from "cors";
 
 dotenv.config();
 const port = process.env.PORT
-
 connectDB()
+
+app.use(cors({
+  origin: "https://wwt-frontend.vercel.app", // allow only this origin
+  credentials: true // if you're using cookies
+}));
+
+
 
 const app = express()
         // Middlewares
