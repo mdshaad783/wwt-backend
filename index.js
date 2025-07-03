@@ -13,15 +13,14 @@ import cors from "cors";
 dotenv.config();
 const port = process.env.PORT
 connectDB()
+const app = express()
 
 app.use(cors({
-  origin: "https://wwt-frontend.vercel.app", // allow only this origin
+  origin: "https://walkwithtrends.vercel.app/", // allow only this origin
   credentials: true // if you're using cookies
 }));
 
 
-
-const app = express()
         // Middlewares
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
