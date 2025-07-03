@@ -16,7 +16,7 @@ connectDB()
 const app = express()
 
 app.use(cors({
-  origin: "https://walkwithtrends.vercel.app/", // allow only this origin
+  origin: "https://walkwithtrends.vercel.app", // allow only this origin
   credentials: true // if you're using cookies
 }));
 
