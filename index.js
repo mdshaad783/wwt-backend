@@ -15,9 +15,23 @@ const port = process.env.PORT
 connectDB()
 const app = express()
 
+
+            // Production
+const allowedOrigins = [
+  "https://walkwithtrends.vercel.app", // deployed frontend
+  "http://localhost:5173"              // local frontend
+];
+
 app.use(cors({
-  origin: "https://walkwithtrends.vercel.app", // allow only this origin
-  credentials: true // if you're using cookies
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps or curl/postman)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
 }));
 
 
