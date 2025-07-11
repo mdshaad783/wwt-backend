@@ -3,11 +3,14 @@ import formidable from 'express-formidable'
 import { authenticate,authorizeAdmin } from "../middlewares/authMiddleware.js";
 import checkId from "../middlewares/checkId.js";
 import { addProduct, updateProductDetails, removeProduct, fetchProducts, fetchProductById, fetchAllProducts, addProductReview,fetchTopProducts, fetchNewProducts, filterProducts } from "../controllers/productController.js";
-
+import upload from './uploadRoutes.js';
 
 const router = express.Router()
 
-router.route('/').get(fetchProducts).post(authenticate, authorizeAdmin, formidable(), addProduct)
+router
+  .route('/')
+  .get(fetchProducts)
+  .post(authenticate, authorizeAdmin, upload.single('image'), addProduct);
 router.route('/allproducts').get(fetchAllProducts)
 router.route('/:id/reviews').post(authenticate,checkId,addProductReview)
 router.get('/top',fetchTopProducts)
