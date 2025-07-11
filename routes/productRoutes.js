@@ -3,7 +3,8 @@ import formidable from 'express-formidable'
 import { authenticate,authorizeAdmin } from "../middlewares/authMiddleware.js";
 import checkId from "../middlewares/checkId.js";
 import { addProduct, updateProductDetails, removeProduct, fetchProducts, fetchProductById, fetchAllProducts, addProductReview,fetchTopProducts, fetchNewProducts, filterProducts } from "../controllers/productController.js";
-import upload from './uploadRoutes.js';
+import upload from '../utils/cloudinaryUpload.js';
+
 
 const router = express.Router()
 
