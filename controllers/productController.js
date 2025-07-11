@@ -4,6 +4,7 @@ import Product from '../models/productModel.js'
 const addProduct = asyncHandler(async(req, res)=>{
     try {
         const {name, description, price, category, quantity, brand, sizes} = req.fields
+        const { photo } = req.files;
         console.log(sizes)
         // console.log(typeof(sizes))
 
@@ -22,8 +23,16 @@ const addProduct = asyncHandler(async(req, res)=>{
                 return res.json({error:"Brand is required..."})
             
         }
+
+
+         const uploaded = await cloudinary.uploader.upload(photo.path, {
+            folder: "products"
+        });
+
+        // Optional: remove local temp image
+        fs.unlinkSync(photo.path);
         
-        const product = new Product({...req.fields,sizes: sizes,})
+        const product = new Product({...req.fields,image: uploaded.secure_url,sizes: sizes,})
         await product.save()
         res.json(product)
     } catch (error) {
